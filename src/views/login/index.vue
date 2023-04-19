@@ -93,8 +93,9 @@ export default {
       })
       // 3、 提交表单请求登陆
       try {
-        const res = await login(user)
-        console.log('登陆成功', res)
+        // eslint-disable-next-line no-unused-vars
+        const { data } = await login(user)
+        this.$store.commit('setUser', data.data)
         this.$toast.success('登陆成功')
       } catch (err) {
         if (err.response.status === 400) {
