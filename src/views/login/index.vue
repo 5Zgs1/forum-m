@@ -84,7 +84,12 @@ export default {
       // 1、 获取表单数据
       const user = this.user
       // 2、 表单验证
-
+      // 在组件中必须使用this.$toast来调用toast组件
+      this.$toast.loading({
+        message: '登陆中',
+        forbidClick: true, // 禁用背景点击
+        duration: 0
+      })
       // 在组件中必须通过 this.$toast 来调用 Toast 组件
       this.$toast.loading({
         message: '加载中',
@@ -93,9 +98,8 @@ export default {
       })
       // 3、 提交表单请求登陆
       try {
-        // eslint-disable-next-line no-unused-vars
-        const { data } = await login(user)
-        this.$store.commit('setUser', data.data)
+        const res = await login(user)
+        this.$store.commit('setUser', res)
         this.$toast.success('登陆成功')
       } catch (err) {
         if (err.response.status === 400) {
@@ -103,7 +107,7 @@ export default {
           this.$toast.fail('登陆失败')
         } else {
           console.log('登陆失败，请稍后重试', err)
-          this.$toast.success('登陆失败，请稍后重试')
+          this.$toast.fail('登陆失败，请稍后重试')
         }
         console.log('登陆失败', err)
       }
