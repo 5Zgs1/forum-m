@@ -109,6 +109,7 @@ export default {
         const res = await login(user)
         this.$store.commit('setUser', res)
         this.$toast.success('登陆成功')
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           console.log('手机号或验证码错误')
