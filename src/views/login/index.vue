@@ -1,7 +1,15 @@
 <template>
 <div class="login-container">
 <!-- 导航栏-->
-  <van-nav-bar class="page-nav-bar" title="登陆"/>
+
+  <van-nav-bar class="page-nav-bar" title="登陆">
+<!--    todo: 图标不展示-->
+    <van-icon
+      name="cross"
+      @click="$router.back()"
+    />
+  </van-nav-bar>
+
 <!--登陆的表单-->
   <van-form ref = "loginForm" @submit="onSubmit">
     <van-cell-group inset>
