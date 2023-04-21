@@ -10,12 +10,25 @@
       >搜索</van-button>
     </template>
   </van-nav-bar>
+<!--频道列表-->
+  <van-tabs class="channel-tabs" v-model:active="active" animated swipeable>
+    <van-tab title="公告">内容 1</van-tab>
+    <van-tab title="寻物启示">内容 2</van-tab>
+    <van-tab title="失物招领">内容 3</van-tab>
+    <van-tab title="考研互助">内容 4</van-tab>
+    <van-tab title="海底捞">内容 4</van-tab>
+  </van-tabs>
 </div>
 </template>
 
 <script>
 export default {
-  name: 'HomeIndex'
+  name: 'HomeIndex',
+  data () {
+    return {
+      active: 0
+    }
+  }
 }
 </script>
 
@@ -31,6 +44,25 @@ export default {
     border: none;
     .van-icon {
       font-size: 32px;
+    }
+  }
+  /deep/.channel-tabs {
+    .van-tabs__wrap {
+      height: 82px;
+    }
+    .van-tab {
+      border-right: 1px solid #edeff3;
+      min-width: 200px;
+      color: #777777;
+    }
+    .van-tab--active {
+      color: #333333
+    }
+    .van-tabs__nav {
+      padding-bottom: 24px;
+    }
+    .van-tab--line {
+      bottom: 8px;
     }
   }
 }
