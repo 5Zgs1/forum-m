@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+import store from '@/store'
 export const login = data => {
   return request({
     method: 'post',
@@ -10,8 +10,17 @@ export const login = data => {
 // 发送验证码
 export const sendSms = mobile => {
   return request({
+    method: 'Get',
+    url: '/app/v1_0/sms/codes/' + mobile
+  })
+}
+// 获取用户信息
+export const getUserInfo = () => {
+  return request({
     method: 'get',
-    // eslint-disable-next-line no-template-curly-in-string
-    url: '/app/v1_0/sms/codes/${mobile}'
+    url: '/app/v1_0/user',
+    headers: {
+      Authorization: 'Bearer' + store.state.user.token
+    }
   })
 }
