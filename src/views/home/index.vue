@@ -64,6 +64,7 @@ export default {
 
 <style scoped lang="less">
 .home-container {
+  // 为了有加载中
   .van-nav-bar__title {
     max-width: unset;
   }
