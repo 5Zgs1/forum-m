@@ -11,12 +11,19 @@
     </template>
   </van-nav-bar>
 <!--频道列表-->
-  <van-tabs class="channel-tabs" v-model:active="active" animated swipeable>
+  <van-tabs class="channel-tabs" v-model="active" animated swipeable>
     <van-tab title="公告">内容 1</van-tab>
     <van-tab title="寻物启示">内容 2</van-tab>
     <van-tab title="失物招领">内容 3</van-tab>
     <van-tab title="考研互助">内容 4</van-tab>
-    <van-tab title="海底捞">内容 4</van-tab>
+    <van-tab title="海底捞">内容 5</van-tab>
+    <template v-slot:nav-right>
+      <div class="placeholder">
+      </div>
+      <div class="hamburger-btn">
+        <van-icon name="apps-o"/>
+      </div>
+    </template>
   </van-tabs>
 </div>
 </template>
@@ -59,10 +66,39 @@ export default {
       color: #333333
     }
     .van-tabs__nav {
-      padding-bottom: 24px;
+      padding-bottom: 3px;
     }
-    .van-tab--line {
+    .van-tabs__line {
       bottom: 8px;
+      width: 31px !important;
+      height: 6px;
+      background-color: #3296fa;
+    }
+    .placeholder {
+      // 默认是1，会参与计算
+      flex-shrink: 0;
+      width: 66px;
+      height: 82px;
+    }
+    .hamburger-btn {
+      position: fixed;
+      right: 0;
+      width: 66px;
+      height: 82px;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      opacity: 1;
+      font-size: 50px;
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 1px;
+        height: 100%;
+        background-image: url("@/assets/gradient-gray-line.png");
+        background-size: contain;
+      }
     }
   }
 }
