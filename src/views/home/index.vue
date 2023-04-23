@@ -12,11 +12,14 @@
   </van-nav-bar>
 <!--频道列表-->
   <van-tabs class="channel-tabs" v-model="active" animated swipeable>
-    <van-tab title="公告">内容 1</van-tab>
-    <van-tab title="寻物启示">内容 2</van-tab>
-    <van-tab title="失物招领">内容 3</van-tab>
-    <van-tab title="考研互助">内容 4</van-tab>
-    <van-tab title="海底捞">内容 5</van-tab>
+    <van-tab
+      :title="channel.name"
+    v-for="channel in channels"
+    :key = "channel.id"
+    >
+      <article-list :channel="channel"/>
+    </van-tab>
+
     <template v-slot:nav-right>
       <div class="placeholder">
       </div>
@@ -29,12 +32,32 @@
 </template>
 
 <script>
+import { getUserChannels } from '@/api/user'
+import ArticleList from './components/article-list'
 export default {
   name: 'HomeIndex',
   data () {
     return {
-      active: 0
+      active: 0,
+      channels: []
     }
+  },
+  created () {
+    this.loadChannels()
+  },
+  methods: {
+    async  loadChannels () {
+      try {
+        const { data } = await getUserChannels()
+        console.log(data)
+        this.channels = data.data.channels
+      } catch (err) {
+        // this.$toast('获取怕频道失败')
+      }
+    }
+  },
+  components: {
+    ArticleList
   }
 }
 </script>

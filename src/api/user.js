@@ -18,9 +18,16 @@ export const sendSms = mobile => {
 export const getUserInfo = () => {
   return request({
     method: 'get',
-    url: '/app/v1_0/user'
+    url: '/v1_0/user/profile'
     // headers: {
     //   Authorization: 'Bearer' + store.state.user.token
     // }
+  })
+}
+// 获取频道列表
+export const getUserChannels = () => {
+  return request({
+    method: 'get',
+    url: '/v1_0/user/channels'
   })
 }
