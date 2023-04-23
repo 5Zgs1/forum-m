@@ -4,7 +4,7 @@
   <router-view/>
 
 <!--标签导航栏-->
-  <van-tabbar route>
+  <van-tabbar v-model="active">
 <!--to:实现路由跳转-->
     <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
     <van-tabbar-item icon="question-o" to="/question">问答</van-tabbar-item>
@@ -19,6 +19,7 @@ export default {
   name: 'LayoutIndex',
   data () {
     return {
+      active: 0
     }
   }
 }
