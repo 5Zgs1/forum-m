@@ -1,7 +1,7 @@
 <template>
   <div class="article-list">
     <van-pull-refresh v-model="isFreshLoading"
-                      success-text="refreshSuccessText"
+                      :success-text = refreshSuccessText
                       :success-duration="1500"
                       @refresh="onRefresh"
     >
@@ -9,7 +9,7 @@
         v-model:loading="loading"
         :finished="finished"
         finished-text="没有更多了"
-        v-model:error="error"
+        :error="error"
         error-text="请求失败，点击重新加载"
         @load="onLoad"
       >
@@ -54,13 +54,13 @@ export default {
           timestamp: this.timestamp || Date.now(),
           with_top: 1
         })
-        const { result } = data.data
+        const { results } = data.data
         // ...数组的展开操作符,他会把数组的元素一个一个得拿出来
-        this.list.push(...result)
+        this.list.push(...results)
         // 加载结束
         this.loading = false
         // 判断是否加载完成
-        if (result.length) {
+        if (results.length) {
           // 更新获取下一页得时间戳
           this.timestamp = data.data.pre_timestamp
         } else {

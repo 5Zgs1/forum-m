@@ -1,5 +1,8 @@
 <template>
-  <div class=" article-item">
+  <div >
+    <van-cell title="danyuge">
+      <template v-slot:title>{{ article.title }}</template>
+    </van-cell>
   </div>
 </template>
 
