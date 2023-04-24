@@ -1,17 +1,22 @@
 <template>
   <div class="article-list">
-    <van-list
-      v-model:loading="loading"
-      :finished="finished"
-      finished-text="没有更多了"
-      v-model:error="error"
-      error-text="请求失败，点击重新加载"
-      @load="onLoad"
+    <van-pull-refresh v-model="isFreshLoading"
+                      success-text="refreshSuccessText"
+                      :success-duration="1500"
+                      @refresh="onRefresh"
     >
-<!--      <van-cell v-for="item in list" :key="item" :title="item" />-->
-      <van-cell v-for="( article, index) in list" :key="index" :title="article.title" />
-    </van-list>
-
+      <van-list
+        v-model:loading="loading"
+        :finished="finished"
+        finished-text="没有更多了"
+        v-model:error="error"
+        error-text="请求失败，点击重新加载"
+        @load="onLoad"
+      >
+        <!--      <van-cell v-for="item in list" :key="item" :title="item" />-->
+        <van-cell v-for="( article, index) in list" :key="index" :title="article.title" />
+      </van-list>
+    </van-pull-refresh>
   </div>
 
 </template>
@@ -27,7 +32,9 @@ export default {
       loading: false,
       finished: false,
       timestamp: null,
-      error: false
+      error: false,
+      isFreshLoading: false,
+      refreshSuccessText: '刷新成功'
     }
   },
   components: {},
@@ -56,7 +63,7 @@ export default {
         this.error = true
         this.loading = false
       }
-    }
+    },
     // onLoad () {
     //   setTimeout(() => {
     //     if (this.refreshing) {
@@ -82,7 +89,27 @@ export default {
     //   // 将 loading 设置为 true，表示处于加载状态
     //   this.loading = true
     //   this.onLoad()
-    // }
+    // },
+    async onRefresh () {
+      try {
+        // 1、请求获取数据
+        const { data } = await getArticles({
+          channel_id: this.channel.id,
+          timestamp: Date.now(),
+          with_top: 1
+        })
+        // 2、将数据追加到列表的顶端
+        const { results } = data.data
+        this.list.unshift(...results)
+        // 3、关闭下拉列表的 loading状态
+        this.isFreshLoading = false
+        // 更新刷新提示文本
+        this.refreshSuccessText = '刷新成功,更新了' + results.length + '条数据'
+      } catch (err) {
+        this.isFreshLoading = false
+        this.refreshSuccessText = '刷新失败'
+      }
+    }
   },
   props: {
     channel: {
