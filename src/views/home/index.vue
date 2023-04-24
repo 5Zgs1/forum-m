@@ -1,6 +1,6 @@
 <template>
 <div class="home-container">
-  <van-nav-bar class="page-nav-bar" title="搜索框">
+  <van-nav-bar class="page-nav-bar" title="搜索框" fixed>
     <template #title>
       <van-button round
                   type="info"
@@ -64,6 +64,8 @@ export default {
 
 <style scoped lang="less">
 .home-container {
+  // 防止数据被盖住，加上padding-top（导航栏加搜索框的高度*2）
+  padding-top: 147px;
   // 为了有加载中
   .van-nav-bar__title {
     max-width: unset;
@@ -88,6 +90,14 @@ export default {
     }
     .van-tab--active {
       color: #333333
+    }
+    .van-tabs__wrap {
+      position: fixed;
+      top: 92px;
+      z-index: 1;
+      left:0;
+      height: 82px;
+      right: 0;
     }
     .van-tabs__nav {
       padding-bottom: 3px;
