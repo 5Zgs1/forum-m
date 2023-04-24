@@ -14,7 +14,13 @@
         @load="onLoad"
       >
         <!--      <van-cell v-for="item in list" :key="item" :title="item" />-->
-        <van-cell v-for="( article, index) in list" :key="index" :title="article.title" />
+<!--        <van-cell v-for="( article, index) in list" :key="index" :title="article.title" />-->
+        <!-- ：article将遍历项传到ArticleItem中-->
+        <ArticleItem
+          v-for="( article, index) in list"
+          :key="index"
+          :article="article"
+        />
       </van-list>
     </van-pull-refresh>
   </div>
@@ -23,7 +29,7 @@
 
 <script>
 import { getArticles } from '@/api/article'
-
+import ArticleItem from '@/components/article-item'
 export default {
   name: 'article-list',
   data () {
@@ -37,7 +43,9 @@ export default {
       refreshSuccessText: '刷新成功'
     }
   },
-  components: {},
+  components: {
+    ArticleItem
+  },
   methods: {
     async onLoad () {
       try {
