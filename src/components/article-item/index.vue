@@ -21,7 +21,7 @@
         <div class="label-info-wrap">
           <span>{{article.aut_name}}</span>
           <span>{{article.comm_count}}评论</span>
-          <span>{{article.pubdate}}</span>
+          <span>{{$filter.timeLong(article.pubdate)}}</span>
         </div>
       </template>
       <!--fit 设置为不拉伸-->
